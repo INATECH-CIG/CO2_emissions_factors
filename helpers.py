@@ -32,18 +32,18 @@ def change_ENTSOE_ProductionTypeName (ProductionTypeName):
             'Nuclear': 'nuclear',
             'Biomass': 'biomass',
             'Waste': 'waste',
-            'Geothermal': 'geothermal',
-            'Marine': 'marine',
+            'Geothermal': 'other_renewable',
+            'Marine': 'other_renewable',
             'Other': 'other_fossil',
             'Hydro Pumped Storage': 'hydro',
             'Hydro Run-of-river and poundage': 'hydro',
             'Hydro Water Reservoir': 'hydro',
-            'Fossil Oil': 'oil',
-            'Fossil Oil shale': 'oil', 
+            'Fossil Oil': 'other_fossil',
+            'Fossil Oil shale': 'other_fossil', 
             'Solar': 'solar',
             'Wind Onshore': 'wind_onshore',
             'Wind Offshore': 'wind_offshore',
-            'Other renewable': 'other_renewable'}, regex = True, inplace = False)
+            'Other renewable': 'other_renewable'}, inplace = False)
 
 
 
@@ -79,3 +79,13 @@ def load_timeseries_ENTSOE(path, fn):
     
     return generation
 
+def get_country(string):
+    # split string and takes the first part
+    string = string.split(',')[-1]
+    return string
+
+def aligndata(data, CO2_cleaned):
+    #consider only countries which appear in both datasets; to have all of them included specific effort is needed.
+    data = data[pd.Series(CO2_cleaned.columns)[pd.Series(CO2_cleaned.columns).apply(lambda x: x in data.columns)]].sort_index()
+    data = data.set_index(CO2_cleaned.index)
+    return data
