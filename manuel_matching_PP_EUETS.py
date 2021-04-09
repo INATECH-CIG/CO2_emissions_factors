@@ -9,10 +9,7 @@ import os
 import logging
 
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-from matplotlib.dates import DateFormatter
-from IPython.display import Image 
+
 
 
 
@@ -167,26 +164,31 @@ def load_timeseries_opsd(path, fn):
 
 
 
-generation_unit_info = load_unit_data(Bootom_up_methode_input_directory_path, 'unit_data.csv')
-generation_per_unit = load_generation_data(Bootom_up_methode_input_directory_path, 'gen_data.csv')
+generation_unit_info = load_unit_data(input_directory_path, 'unit_data_2018.csv')
+generation_per_unit = load_generation_data(input_directory_path, 'gen_data_2018.csv')
 EUTL_emissions = load_EUTL_data(Bootom_up_methode_input_directory_path, 'verified_emissions_2018_en.csv')
 unit_matching_EU = load_matching_data_EU(Bootom_up_methode_input_directory_path, 'matching_ENTSOE_EU_ETS.csv')
 
 
-# unit_matching_EU['ID'] = unit_matching_EU.EUTL_countrycode + unit_matching_EU.EUTL_ID.astype(str)
+unit_matching_EU['ID'] = unit_matching_EU.EUTL_countrycode + unit_matching_EU.EUTL_ID.astype(str)
 
 
-# EUTL_emissions['ID'] = EUTL_emissions.REGISTRY_CODE + EUTL_emissions.INSTALLATION_IDENTIFIER.astype(str)
+EUTL_emissions['ID'] = EUTL_emissions.REGISTRY_CODE + EUTL_emissions.INSTALLATION_IDENTIFIER.astype(str)
 
 
-# EUTL_emissions_needed = EUTL_emissions[~EUTL_emissions.ID.isin(unit_matching_EU.ID)]
-# EUTL_emissions_needed = EUTL_emissions_needed[EUTL_emissions_needed.VERIFIED_EMISSIONS_2018 != 'Excluded']
+EUTL_emissions_needed = EUTL_emissions[~EUTL_emissions.ID.isin(unit_matching_EU.ID)]
+EUTL_emissions_needed = EUTL_emissions_needed[EUTL_emissions_needed.VERIFIED_EMISSIONS_2018 != 'Excluded']
 
-# EUTL_emissions_we_have = EUTL_emissions[EUTL_emissions.ID.isin(unit_matching_EU.ID)]
+EUTL_emissions_needed.VERIFIED_EMISSIONS_2018 = EUTL_emissions_needed.VERIFIED_EMISSIONS_2018.astype(int)
 
-# EUTL_emissions_check = EUTL_emissions_needed[EUTL_emissions_needed.REGISTRY_CODE == 'PL']
+EUTL_emissions_we_have = EUTL_emissions[EUTL_emissions.ID.isin(unit_matching_EU.ID)]
 
-# EUTL_emissions_check.VERIFIED_EMISSIONS_2018 = EUTL_emissions_check.VERIFIED_EMISSIONS_2018.astype(int)
+#filzer
+# REGISTRY_CODE = country
+# MAIN_ACTIVITY_TYPE_CODE = 20 (buring fuel)
+
+EUTL_emissions_check = EUTL_emissions_needed[(EUTL_emissions_needed.REGISTRY_CODE == 'FR') & (EUTL_emissions_needed.MAIN_ACTIVITY_TYPE_CODE == 20)]
+
 
 
 # test = EUTL_emissions[EUTL_emissions.ID.isin(unit_matching_EU.ID)]
