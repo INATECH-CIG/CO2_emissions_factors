@@ -25,7 +25,7 @@ def change_ENTSOE_ProductionTypeName (ProductionTypeName):
     """
     return ProductionTypeName.replace({
             'Fossil Hard coal': 'hard_coal', 
-            'Fossil Brown coal/Lignite': 'ligniteeeee', 
+            'Fossil Brown coal/Lignite': 'lignite', 
             'Fossil Gas': 'gas',
             'Fossil Coal-derived gas': 'other_fossil',
             'Fossil Peat': 'other_fossil',
