@@ -1,12 +1,5 @@
------
 
-#####################
-CO2 emissions factors
-#####################
-
-.. contents::
-
-.. section-numbering::
+# CO2 emissions factors
 
 
 About
