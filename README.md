@@ -13,4 +13,4 @@ Open-data based carbon emission intensity signals for electricity generation in 
 Licence
 =======
 
-This repository is licensed under the open source `MIT License <https://github.com/INATECH-CIG/CO2_emissions_factors/blob/main/LICENSE>`_.
+This repository is licensed under the open source [MIT License](https://github.com/INATECH-CIG/CO2_emissions_factors/blob/main/LICENSE).
