@@ -1,10 +1,6 @@
 
 # CO2 emissions factors
 
-
-About
-=====
-
 This repository contains the scripts for the publication:
 Open-data based carbon emission intensity signals for electricity generation in European countries – top down vs. bottom up approach
 
